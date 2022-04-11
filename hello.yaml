@@ -1,6 +1,6 @@
 ---
 - name: testing
-  hosts: localhost
+  hosts: all
   tasks:
     - name: print shubham
       debug:
