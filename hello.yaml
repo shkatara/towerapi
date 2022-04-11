@@ -3,7 +3,7 @@
   hosts: localhost
   tasks:
     - name: print shubham
-      debug: 
-        msg: Hello World How are you I am chitti dot
+      debug:
+     msg: Hello World How are you I am chitti dot
 
 ...
