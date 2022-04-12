@@ -1,0 +1,24 @@
+---
+- name: run the playbook
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Queue build of a project in 
+      uri:
+        url: https://ansible-ctrl.0e25.dynamic.opentlc.com/api/v2/jobs/
+        user: admin
+        password: redhat
+        method: GET
+        validate_certs: false
+        force_basic_auth: yes
+        status_code: 200
+        return_content: true
+      register: towerapi
+      
+    - name: print
+      debug:
+        var: towerapi
+
+
+...
+
