@@ -1,6 +1,6 @@
 JOB NAME | PLAYBOOK | ID | CREATED ON | HOST | STATUS
 
 {% for result in towerapi.json.results  %}
-{{ result.summary_fields.unified_job_template.name }} | {{result.id}} | {{ result.created.split('.')[0].split('T')[0] }} {{  result.created.split('.')[0].split('T')[1] }} | {%for output in vardata.results%}{%for data in output.json.results%}{%if output.item==result.id%}{{data.host_name}}{%endif%}{%endfor%}{%endfor%} | {{result.status}}
+{{ result.summary_fields.unified_job_template.name }} | {{result.id}} | {{ result.created.split('.')[0].split('T')[0] }} {{  result.created.split('.')[0].split('T')[1] }} | {%for output in vardata.results%}{%for data in output.json.results%}{%if output.item==result.id%}{{data.host_name}} {%endif%}{%endfor%}{%endfor%} | {{result.status}}
 {% endfor %}
 
