@@ -42,6 +42,9 @@
       no_log: true
 
 
+    - name: print vardata
+      debug: 
+        var:  vardata
     - name: template
       template:
         src: template.j2
