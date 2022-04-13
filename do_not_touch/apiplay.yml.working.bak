@@ -8,7 +8,11 @@
       set_fact: 
         job_id: []
 
-    - name: Queue build of a project in 
+    - name: set empty list for job ids
+      set_fact: 
+        inventory_id: []
+    
+    - name: Queue Jobs in ansible tower
       uri:
         url: https://ansible-ctrl.0e25.dynamic.opentlc.com/api/v2/jobs/
         user: admin
@@ -20,14 +24,23 @@
         return_content: true
       register: towerapi
       
-    - name: append
+    - name: create the job id list
       set_fact:
         job_id : "{{ job_id + [item.id]  }}"
       loop: "{{towerapi.json.results}}"
 
-    - name: get the host information
+    - name: create the inventory id list
+      set_fact:
+        inventory_id : "{{ inventory_id + [item.summary_fields.inventory.id]  }}"
+      loop: "{{towerapi.json.results}}"
+
+    - name: create unique list
+      set_fact:
+        inventory: "{{inventory_id | unique}}"
+ 
+    - name: get the host information reading the inventory
       uri:
-        url: https://ansible-ctrl.0e25.dynamic.opentlc.com/api/v2/jobs/{{item}}/job_host_summaries
+        url: https://ansible-ctrl.0e25.dynamic.opentlc.com/api/v2/inventories/{{item}}/hosts
         user: admin
         password: redhat
         method: GET
@@ -35,11 +48,11 @@
         force_basic_auth: yes
         status_code: 200
         return_content: true
-      loop: "{{job_id}}"
-      register: vardata
+      loop: "{{inventory}}"
+      register: inv_data
 
-
-    - name: template
-      template:
+    - name: print inv_data
+      template: 
         src: template.j2
         dest: /tmp/tower
+
