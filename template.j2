@@ -1,7 +1,7 @@
 TEMPLATE NAME | JOB ID | CREATED ON | HOST | STATUS
 
 {% for result in towerapi.json.results  %}
-{{ result.summary_fields.unified_job_template.name }} | {{result.id}} | {{ result.created.split('.')[0].split('T')[0] }} {{  result.created.split('.')[0].split('T')[1] }} | {% for output in vardata.results %}{% for newoutput in output.json.results %}{% if output.json.count>0 %}{% if output.item==result.id %}{{ newoutput.host_name }}{% else %}NO HOST INVOLVED IN FAILURE/SUCCESS{% endif %}{% endif %}{% endfor %}{% endfor %} | {{result.status}}
+{{ result.summary_fields.unified_job_template.name }} | {{result.id}} | {{ result.created.split('.')[0].split('T')[0] }} {{  result.created.split('.')[0].split('T')[1] }} | {% for output in vardata.results %}{% if result.id == output.item %}{% if output.json.results | length > 0 %}{% for hosts in output.json.results  %}{{hosts.host_name}} {% endfor %}{% else  %}FAILURE NOT DUE TO HOSTS{% endif  %}{% endif  %}{% endfor %} | {{result.status}}
 {% endfor %}
 
 
