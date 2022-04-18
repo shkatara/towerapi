@@ -3,6 +3,9 @@
 - name: run the playbook
   hosts: localhost
   gather_facts: false
+  vars: 
+    start: "2022-04-14"
+    end: "2022-04-18"
   tasks:
     - name: set empty list for job ids
       set_fact: 
@@ -10,7 +13,7 @@
 
     - name: Queue build of a project in 
       uri:
-        url: https://ansible-ctrl.0e25.dynamic.opentlc.com/api/v2/jobs/
+        url: https://ansible-ctrl.0e25.dynamic.opentlc.com/api/v2/jobs?started__gte={{start}}&finished__lte={{end}}
         user: admin
         password: redhat
         method: GET
@@ -44,4 +47,4 @@
     - name: template
       template:
         src: template.j2
-        dest: /mnt/c/Users/conta/Downloads/beauty.html
+        dest: per-host-timeframe
