@@ -44,4 +44,4 @@
     - name: template
       template:
         src: template.j2
-        dest: /mnt/c/Users/conta/Downloads/beauty.html
+        dest: per-host.txt

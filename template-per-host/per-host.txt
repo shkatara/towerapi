@@ -1,0 +1,11 @@
+API Template,9,2022-04-11 11:57:51,FAILURE NOT HOST
+App 01 Template,11,2022-04-11 13:10:32,FAILURE NOT HOST
+App 01 Template,27,2022-04-13 07:04:33, app-02.example.com
+App 01 Template,29,2022-04-13 15:36:13, app-02.example.com
+App 01 Template,29,2022-04-13 15:36:13, frontend.example.com
+App 01 Template,29,2022-04-13 15:36:13, database-01.example.com
+App 01 Template,29,2022-04-13 15:36:13, app-01.example.com
+App 01 Template,31,2022-04-14 07:08:35,FAILURE NOT HOST
+App 01 Template,33,2022-04-14 07:09:41, app-02.example.com
+App 01 Template,33,2022-04-14 07:09:41, app-01.example.com
+App 01 Template,33,2022-04-14 07:09:41, database-01.example.com
