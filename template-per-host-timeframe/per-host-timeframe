@@ -1,0 +1,4 @@
+App 01 Template,31,2022-04-14 07:08:35,FAILURE NOT HOST
+App 01 Template,33,2022-04-14 07:09:41,app-02.example.com,successful
+App 01 Template,33,2022-04-14 07:09:41,app-01.example.com,successful
+App 01 Template,33,2022-04-14 07:09:41,database-01.example.com,successful
