@@ -25,11 +25,13 @@
         status_code: 200
         return_content: true
       register: towerapi
+      no_log: true
 
     - name: append
       set_fact:
         job_id : "{{ job_id + [item.id]  }}"
       loop: "{{towerapi.json.results}}"
+      no_log: true
 
     - name: get the host information
       uri:
@@ -43,6 +45,7 @@
         return_content: true
       loop: "{{job_id}}"
       register: vardata
+      no_log: true
     
     - name: template
       template:
@@ -57,3 +60,4 @@
         to: "{{mail_reciever}}"
         subject: Ansible Tower Reporting Output
         body: "{{lookup('file', 'per-host-timeframe') }}"
+      no_log: true
