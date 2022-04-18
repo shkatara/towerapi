@@ -3,7 +3,9 @@
     {%- if result.id == output.item -%}
       {%- if output.json.results | length >0 -%}
         {%- for hosts in output.json.results  -%}
-{{result.summary_fields.unified_job_template.name}},{{result.id}},{{ result.created.split('.')[0].split('T')[0] }} {{  result.created.split('.')[0].split('T')[1] }}, {{  hosts.host_name  }}
+{{result.summary_fields.unified_job_template.name}},{{result.id}},{{ result.created.split('.')[0].split('T')[0] }} {{  result.created.split('.')[0].split('T')[1] }},{{  hosts.host_name  }},
+{%- if hosts.failures >0 -%}failed{%-else-%}successful{%- endif%}
+
 {% endfor  -%}
 {%- else -%}
 {{result.summary_fields.unified_job_template.name}},{{result.id}},{{ result.created.split('.')[0].split('T')[0] }} {{  result.created.split('.')[0].split('T')[1] }},FAILURE NOT HOST
