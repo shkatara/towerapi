@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+
+<table>
+  <tr>
+    <th>Template Name</th>
+    <th>JOB ID</th>
+    <th>CREATED ON</th>
+    <th>HOST</th>
+    <th>STATUS</th>
+  </tr>
+{% for result in towerapi.json.results %}
+  <tr>
+      <td>{{result.summary_fields.unified_job_template.name}}</td>
+      <td>{{result.id}}</td>
+      <td>{{ result.created.split('.')[0].split('T')[0] }} {{  result.created.split('.')[0].split('T')[1] }}</td>
+      <td>
+        <table>
+          <tr>
+              <ul>
+{% for output in vardata.results %}{% if result.id == output.item %}{% if output.json.results | length > 0 %}{% for hosts in output.json.results  %}
+                <li> {{hosts.host_name}} </li>
+{% endfor %}{% else %}
+                <li> Failure Not Because Of Any Host </li>
+{% endif  %}{% endif %}{% endfor %}
+              </ul>
+          </tr>
+        </table>
+      <td>{{result.status}}</td>
+  </tr>
+{% endfor %}
+</table>
+</body>
+</html>
