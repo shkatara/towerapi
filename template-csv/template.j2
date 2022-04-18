@@ -1,0 +1,3 @@
+{% for result in towerapi.json.results %}
+{{result.summary_fields.unified_job_template.name}},{{result.id}},{{ result.created.split('.')[0].split('T')[0] }} {{  result.created.split('.')[0].split('T')[1] }},{% for output in vardata.results %}{% if result.id == output.item %}{% if output.json.results | length > 0 %}{% for hosts in output.json.results  %}{{hosts.host_name}},{% endfor %}{% else %}Failure Not Because Of Any Host,{% endif  %}{% endif %}{% endfor %}{{result.status}}
+{% endfor %}

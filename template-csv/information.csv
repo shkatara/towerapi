@@ -1,0 +1,6 @@
+API Template,9,2022-04-11 11:57:51,Failure Not Because Of Any Host,failed
+App 01 Template,11,2022-04-11 13:10:32,Failure Not Because Of Any Host,failed
+App 01 Template,27,2022-04-13 07:04:33,app-02.example.com,successful
+App 01 Template,29,2022-04-13 15:36:13,app-02.example.com,frontend.example.com,database-01.example.com,app-01.example.com,successful
+App 01 Template,31,2022-04-14 07:08:35,Failure Not Because Of Any Host,failed
+App 01 Template,33,2022-04-14 07:09:41,app-02.example.com,app-01.example.com,database-01.example.com,successful
