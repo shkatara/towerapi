@@ -31,7 +31,6 @@
         status_code: 200
         return_content: true
       register: towerapi
-      no_log: true
 
     - name: append
       set_fact:
