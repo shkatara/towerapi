@@ -17,12 +17,12 @@
 
     - name: set dates with time
       set_fact:
-        start: "{{start}}T00:00:01"
-        end: "{{start}}T23:59:59"
+        start_date_time: "{{start}}T00:00:01"
+        end_date_time: "{{start}}T23:59:59"
 
     - name: Queue build of a project in 
       uri:
-        url: https://phchbs-lx220059.eu.novartis.net/api/v2/jobs?started__gte={{start}}&finished__lte={{end}}
+        url: https://phchbs-lx220059.eu.novartis.net/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}
         user: "{{tower_user}}"
         password: "{{tower_pass}}"
         method: GET
