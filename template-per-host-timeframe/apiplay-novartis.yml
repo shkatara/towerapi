@@ -23,7 +23,7 @@
 
     - name: Queue build for getting count of jobs in ansible tower
       uri:
-        url: https://ansible-ctrl.0e25.dynamic.opentlc.com/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}
+        url: https://phchbs-lx220059.eu.novartis.net/api/v2/jobs/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}
         user: "{{tower_user}}"
         password: "{{tower_pass}}"
         method: GET
@@ -37,7 +37,7 @@
 
     - name: Query within Ansible tower for reporting
       uri:
-        url: https://ansible-ctrl.0e25.dynamic.opentlc.com/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}&page_size={{for_count.json.count}}
+        url: https://phchbs-lx220059.eu.novartis.net/api/v2/jobs/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}&page_size={{for_count.json.count}}
         user: "{{tower_user}}"
         password: "{{tower_pass}}"
         method: GET
