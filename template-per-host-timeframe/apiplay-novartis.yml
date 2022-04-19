@@ -77,7 +77,7 @@
         port: 25
         from: runbook.automation@novartis.com
         to: "{{mail_reciever}}"
-        subject: Ansible Tower Reporting Output
+        subject: Ansible Tower Job Report from {{start}} to {{end}}
         attach:
           - per-host-timeframe.csv
       no_log: true
