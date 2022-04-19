@@ -32,7 +32,6 @@
         status_code: 200
         return_content: true
       register: for_count
-      no_log: true
 
 
     - name: Query within Ansible tower for reporting
