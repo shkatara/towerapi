@@ -1,6 +1,4 @@
 ---
-
-
 - name: run the playbook
   hosts: localhost
   gather_facts: false
@@ -71,14 +69,15 @@
     - name: template
       template:
         src: template.j2
-        dest: per-host-timeframe
+        dest: per-host-timeframe.csv
 
-    - name: send email
+    - name: send email as attachment
       mail: 
         host: mail.novartis.com
         port: 25
         from: runbook.automation@novartis.com
         to: "{{mail_reciever}}"
         subject: Ansible Tower Reporting Output
-        body: "{{lookup('file', 'per-host-timeframe') }}"
+        attach:
+          - per-host-timeframe.csv
       no_log: true

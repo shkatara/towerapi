@@ -1,10 +1,57 @@
-App 01 Template,35,2022-04-18 07:47:21,database-01.example.com,failed
-App 01 Template,35,2022-04-18 07:47:21,app-02.example.com,successful
-App 01 Template,35,2022-04-18 07:47:21,app-01.example.com,successful
-App 01 Template,37,2022-04-18 08:10:05,frontend.example.com,successful
-App 01 Template,37,2022-04-18 08:10:05,app-02.example.com,successful
-App 01 Template,37,2022-04-18 08:10:05,app-01.example.com,successful
-App 01 Template - Another_Org,41,2022-04-19 09:59:50,localhost,successful
-App 01 Template - Another_Org,44,2022-04-19 13:22:21,localhost,successful
-App 01 Template - Another_Org,46,2022-04-19 13:23:24,localhost,successful
-App 01 Template - Another_Org,49,2022-04-19 13:25:40,localhost,successful
+Ansible Tower Reporting - Backup Org,84608,2022-04-19 09:21:55,localhost,successful
+RHEL8-Public-Cloud-Build,84609,2022-04-19 09:22:10,glusvn-sd917510.na.novartis.net,successful
+RHEL8-Public-Cloud-Build,84611,2022-04-19 09:25:44,glusvn-sd917510.na.novartis.net,failed
+RHEL8-Public-Cloud-Build,84613,2022-04-19 09:29:13,glusvn-sd917510.na.novartis.net,failed
+RHEL8-Public-Cloud-Build,84615,2022-04-19 09:33:56,glusvn-sd917510.na.novartis.net,failed
+Ansible Tower Reporting,84617,2022-04-19 09:36:11,localhost,successful
+RHEL8-Public-Cloud-Build,84618,2022-04-19 09:37:12,glusvn-sd917510.na.novartis.net,failed
+RHEL8-Public-Cloud-Build,84620,2022-04-19 09:38:52,glusvn-sd917510.na.novartis.net,failed
+RHEL8-Public-Cloud-Build,84622,2022-04-19 09:42:56,glusvn-sd917510.na.novartis.net,failed
+RHEL8-Public-Cloud-Build,84624,2022-04-19 09:45:00,glusvn-sd917510.na.novartis.net,failed
+RHEL8-Public-Cloud-Build,84626,2022-04-19 09:47:36,glusvn-sd917510.na.novartis.net,failed
+RHEL8-Public-Cloud-Build,84628,2022-04-19 09:50:07,glusvn-sd917510.na.novartis.net,failed
+RHEL8-Public-Cloud-Build,84630,2022-04-19 09:55:44,glusvn-sd917510.na.novartis.net,failed
+RHEL8-Public-Cloud-Build,84632,2022-04-19 09:57:00,glusvn-sd917510.na.novartis.net,failed
+RHEL8-Public-Cloud-Build,84634,2022-04-19 09:58:49,glusvn-sd917510.na.novartis.net,failed
+RHEL8-Public-Cloud-Build,84636,2022-04-19 10:00:15,glusvn-sd917510.na.novartis.net,successful
+RHEL8-Public-Cloud-Build,84638,2022-04-19 10:03:48,glusvn-sd917510.na.novartis.net,successful
+RHEL8-Public-Cloud-Build,84640,2022-04-19 10:03:50,glusvn-sd917510.na.novartis.net,successful
+RHEL8-Public-Cloud-Build,84641,2022-04-19 10:09:30,glusvn-sd917510.na.novartis.net,successful
+RHEL8-Public-Cloud-Build,84643,2022-04-19 10:13:57,glusvn-sd917510.na.novartis.net,successful
+RHEL8-Public-Cloud-Build,84644,2022-04-19 10:13:57,glusvn-sd917510.na.novartis.net,successful
+RHEL8-Public-Cloud-Build,84646,2022-04-19 10:16:44,glusvn-sd917510.na.novartis.net,successful
+RHEL8-Public-Cloud-Build,84648,2022-04-19 10:20:01,glusvn-sd917510.na.novartis.net,successful
+RHEL8-Public-Cloud-Build,84650,2022-04-19 10:26:47,glusvn-sd917510.na.novartis.net,failed
+Windows_Oracle_Patching_WRT_PATCH_CYCLE,84652,2022-04-19 10:28:52,PHCHBS-SD360099.eu.novartis.net,failed
+RHEL8-Public-Cloud-Build,84654,2022-04-19 10:31:47,glusvn-sd917510.na.novartis.net,failed
+RHEL8-Public-Cloud-Build,84656,2022-04-19 10:32:59,glusvn-sd917510.na.novartis.net,failed
+RHEL8-Public-Cloud-Build,84658,2022-04-19 10:35:18,glusvn-sd917510.na.novartis.net,failed
+RHEL8-Public-Cloud-Build,84660,2022-04-19 10:40:55,glusvn-sd917510.na.novartis.net,failed
+RHEL8-Public-Cloud-Build,84662,2022-04-19 10:42:38,glusvn-sd917510.na.novartis.net,successful
+JT_fmw_ohs_playbook,84664,2022-04-19 10:46:42,GLCHBS-SD220150.eu.novartis.net,failed
+RHEL8-Public-Cloud-Build,84666,2022-04-19 10:52:00,glusvn-sd917510.na.novartis.net,successful
+Ansible Tower Reporting,84669,2022-04-19 10:59:45,localhost,successful
+Ansible Tower Reporting,84670,2022-04-19 11:02:37,localhost,successful
+Ansible Tower Reporting,84671,2022-04-19 11:03:40,localhost,successful
+Ansible Tower Reporting,84673,2022-04-19 11:07:15,localhost,successful
+JT_fmw_ohs_playbook,84675,2022-04-19 11:20:35,GLCHBS-SS220436.eu.novartis.net,failed
+RHEL8-Public-Cloud-Build,84677,2022-04-19 11:24:53,glusvn-sd917510.na.novartis.net,successful
+JT_fmw_ohs_playbook,84679,2022-04-19 11:27:13,GLCHBS-SS220436.eu.novartis.net,failed
+JT_fmw_ohs_playbook,84681,2022-04-19 11:30:29,GLCHBS-SS220436.eu.novartis.net,failed
+Windows_Oracle_Patching_WRT_PATCH_CYCLE,84683,2022-04-19 11:48:17,PHCHBS-SD360099.eu.novartis.net,successful
+RHEL8-Public-Cloud-Security,84687,2022-04-19 12:20:15,glusvn-sd917510.na.novartis.net,successful
+Windows_Oracle_Patching_WRT_PATCH_CYCLE,84689,2022-04-19 12:25:00,FAILURE NOT HOST
+JT_fmw_ohs_playbook,84691,2022-04-19 12:29:42,GLCHBS-SD260059.eu.novartis.net,failed
+Windows_Oracle_Patching_WRT_PATCH_CYCLE,84693,2022-04-19 12:35:06,GLCHBS-ST360163.eu.novartis.net,failed
+SOX_WINDOWS,84695,2022-04-19 12:52:59,localhost,failed
+SOX_WINDOWS,84695,2022-04-19 12:52:59,GLCHBS-ST360164.eu.novartis.net,successful
+SOX_WINDOWS,84695,2022-04-19 12:52:59,GLCHBS-SS320336.eu.novartis.net,successful
+SOX_WINDOWS,84697,2022-04-19 13:02:47,localhost,successful
+SOX_WINDOWS,84697,2022-04-19 13:02:47,GLCHBS-ST360164.eu.novartis.net,successful
+SOX_WINDOWS,84697,2022-04-19 13:02:47,GLCHBS-SS320336.eu.novartis.net,successful
+SOX_WINDOWS,84699,2022-04-19 13:19:06,localhost,successful
+SOX_WINDOWS,84699,2022-04-19 13:19:06,GLCHBS-ST360164.eu.novartis.net,successful
+SOX_WINDOWS,84699,2022-04-19 13:19:06,GLCHBS-SS320336.eu.novartis.net,successful
+Ansible Tower Reporting,84702,2022-04-19 13:40:20,localhost,failed
+Ansible Tower Reporting,84705,2022-04-19 13:42:49,localhost,failed
+Ansible Tower Reporting,84708,2022-04-19 13:44:28,localhost,failed
