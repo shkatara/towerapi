@@ -20,9 +20,24 @@
         start_date_time: "{{start}}T00:00:01"
         end_date_time: "{{start}}T23:59:59"
 
-    - name: Queue build of a project in 
+
+    - name: Queue build for getting count of jobs in ansible tower
       uri:
-        url: https://phchbs-lx220059.eu.novartis.net/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}
+        url: https://ansible-ctrl.0e25.dynamic.opentlc.com/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}
+        user: "{{tower_user}}"
+        password: "{{tower_pass}}"
+        method: GET
+        validate_certs: false
+        force_basic_auth: yes
+        status_code: 200
+        return_content: true
+      register: for_count
+      no_log: true
+
+
+    - name: Query within Ansible tower for reporting
+      uri:
+        url: https://ansible-ctrl.0e25.dynamic.opentlc.com/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}&page_size={{for_count.json.count}}
         user: "{{tower_user}}"
         password: "{{tower_pass}}"
         method: GET
@@ -31,6 +46,7 @@
         status_code: 200
         return_content: true
       register: towerapi
+      no_log: true
 
     - name: append
       set_fact:
