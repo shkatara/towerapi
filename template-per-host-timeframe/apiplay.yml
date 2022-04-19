@@ -5,12 +5,17 @@
   hosts: localhost
   gather_facts: false
   vars: 
-    start: "2022-04-14"
-    end: "2022-04-18"
+    start: "2022-04-17"
+    end: "2022-04-19"
   tasks:
     - name: set empty list for job ids
       set_fact: 
         job_id: []
+
+    - name: set dates
+      set_fact:
+        start: "{{start}}T00:00:01"
+        end: "{{end}}T23:59:59"
 
     - name: Queue build of a project in 
       uri:

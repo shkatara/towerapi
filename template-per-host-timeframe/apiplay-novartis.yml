@@ -14,6 +14,12 @@
       set_fact: 
         job_id: []
 
+
+    - name: set dates with time
+      set_fact:
+        start: "{{start}}T00:00:01"
+        end: "{{start}}T23:59:59"
+
     - name: Queue build of a project in 
       uri:
         url: https://phchbs-lx220059.eu.novartis.net/api/v2/jobs?started__gte={{start}}&finished__lte={{end}}

@@ -1,4 +1,7 @@
-App 01 Template,31,2022-04-14 07:08:35,FAILURE NOT HOST
-App 01 Template,33,2022-04-14 07:09:41,app-02.example.com,successful
-App 01 Template,33,2022-04-14 07:09:41,app-01.example.com,successful
-App 01 Template,33,2022-04-14 07:09:41,database-01.example.com,successful
+App 01 Template,35,2022-04-18 07:47:21,database-01.example.com,failed
+App 01 Template,35,2022-04-18 07:47:21,app-02.example.com,successful
+App 01 Template,35,2022-04-18 07:47:21,app-01.example.com,successful
+App 01 Template,37,2022-04-18 08:10:05,frontend.example.com,successful
+App 01 Template,37,2022-04-18 08:10:05,app-02.example.com,successful
+App 01 Template,37,2022-04-18 08:10:05,app-01.example.com,successful
+App 01 Template - Another_Org,41,2022-04-19 09:59:50,localhost,successful
