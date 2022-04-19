@@ -17,9 +17,23 @@
         start: "{{start}}T00:00:01"
         end: "{{end}}T23:59:59"
 
-    - name: Queue build of a project in 
+    - name: Queue build for reporting in Tower
       uri:
         url: https://ansible-ctrl.0e25.dynamic.opentlc.com/api/v2/jobs?started__gte={{start}}&finished__lte={{end}}
+        user: admin
+        password: redhat
+        method: GET
+        validate_certs: false
+        force_basic_auth: yes
+        status_code: 200
+        return_content: true
+      register: for_count
+      no_log: true
+
+
+    - name: Query within the date and time and for count
+      uri:
+        url: https://ansible-ctrl.0e25.dynamic.opentlc.com/api/v2/jobs?started__gte={{start}}&finished__lte={{end}}&page_size={{for_count.json.count}}
         user: admin
         password: redhat
         method: GET
