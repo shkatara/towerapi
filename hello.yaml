@@ -1,6 +1,7 @@
 ---
 - name: testing
   hosts: localhost
+  gather_facts: false
   tasks:
     - name: print shubham
       debug:
