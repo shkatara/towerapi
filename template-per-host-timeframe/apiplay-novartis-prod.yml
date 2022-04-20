@@ -30,7 +30,6 @@
         status_code: 200
         return_content: true
       register: for_count
-      no_log: true
 
 
     - name: Query within Ansible tower for reporting
@@ -44,13 +43,11 @@
         status_code: 200
         return_content: true
       register: towerapi
-      no_log: true
 
     - name: append
       set_fact:
         job_id : "{{ job_id + [item.id]  }}"
       loop: "{{towerapi.json.results}}"
-      no_log: true
 
     - name: get the host information
       uri:
@@ -64,7 +61,6 @@
         return_content: true
       loop: "{{job_id}}"
       register: vardata
-      no_log: true
     
     - name: template
       template:
@@ -80,4 +76,3 @@
         subject: Ansible Tower Job Report from {{start}} to {{end}}
         attach:
           - per-host-timeframe.csv
-      no_log: true
