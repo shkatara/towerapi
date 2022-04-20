@@ -21,7 +21,7 @@
 
     - name: Queue build for getting count of jobs in ansible tower
       uri:
-        url: https://ansible.novartis.infra/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}
+        url: https://ansible.novartis.intra/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}
         user: "{{tower_user}}"
         password: "{{tower_pass}}"
         method: GET
@@ -34,7 +34,7 @@
 
     - name: Query within Ansible tower for reporting
       uri:
-        url: https://ansible.novartis.infra/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}&page_size={{for_count.json.count}}
+        url: https://ansible.novartis.intra/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}&page_size={{for_count.json.count}}
         user: "{{tower_user}}"
         password: "{{tower_pass}}"
         method: GET
@@ -51,7 +51,7 @@
 
     - name: get the host information
       uri:
-        url: https://ansible.novartis.infra/api/v2/jobs/{{item}}/job_host_summaries
+        url: https://ansible.novartis.intra/api/v2/jobs/{{item}}/job_host_summaries
         user: "{{tower_user}}"
         password: "{{tower_pass}}"
         method: GET
