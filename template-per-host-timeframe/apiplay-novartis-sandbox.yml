@@ -16,7 +16,7 @@
     - name: set dates with time
       set_fact:
         start_date_time: "{{start}}T00:00:01"
-        end_date_time: "{{start}}T23:59:59"
+        end_date_time: "{{end}}T23:59:59"
 
 
     - name: Queue build for getting count of jobs in ansible tower
