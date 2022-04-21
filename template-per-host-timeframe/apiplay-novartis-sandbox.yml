@@ -29,6 +29,10 @@
       register: for_count
       no_log: true
     
+    - name: Print Total no of jobs
+      debug:
+        msg: The total no of jobs are  {{for_count.json.count}}
+ 
     - name: calculate no of pages given page size is 2
       set_fact:
         no_of_pages: "{{ for_count.json.count / 2 }}"
@@ -40,7 +44,7 @@
 
     - name: print the no of pages
       debug:
-        msg: no of pages are {{no_of_pages}}
+        msg: no of pages needef are {{no_of_pages}}
 
     - name: Query within Ansible tower for reporting
       uri:
