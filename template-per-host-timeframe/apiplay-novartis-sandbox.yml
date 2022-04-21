@@ -33,9 +33,9 @@
       debug:
         msg: The total no of jobs are  {{for_count.json.count}}
  
-    - name: calculate no of pages given page size is 2
+    - name: calculate no of pages given page size is 200
       set_fact:
-        no_of_pages: "{{ for_count.json.count / 2 }}"
+        no_of_pages: "{{ for_count.json.count / 200 }}"
 
     - name: set no of pages if more than 1 needed
       set_fact:
