@@ -5,13 +5,10 @@
   vars: 
     start: "2022-04-14"
     end: "2022-04-18"
+    no_of_pages: 1.0
   vars_files:
     - vars.yml
   tasks:
-    - name: set empty list for job ids
-      set_fact: 
-        job_id: []
-
 
     - name: set dates with time
       set_fact:
@@ -21,7 +18,7 @@
 
     - name: Queue build for getting count of jobs in ansible tower
       uri:
-        url: https://ansible.novartis.intra/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}
+        url: https://ansible.novartis.infra/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}
         user: "{{tower_user}}"
         password: "{{tower_pass}}"
         method: GET
@@ -31,11 +28,27 @@
         return_content: true
       register: for_count
       no_log: true
+    
+    - name: Print Total no of jobs
+      debug:
+        msg: The total no of jobs are  {{for_count.json.count}}
+ 
+    - name: calculate no of pages given page size is 200
+      set_fact:
+        no_of_pages: "{{ for_count.json.count / 200 }}"
 
-   
+    - name: set no of pages if more than 1 needed
+      set_fact:
+        no_of_pages: "{{no_of_pages|float|round(0,'ceil')}}"
+      when: no_of_pages|float > 1.0
+
+    - name: print the no of pages
+      debug:
+        msg: no of pages needef are {{no_of_pages}}
+
     - name: Query within Ansible tower for reporting
       uri:
-        url: https://ansible.novartis.intra/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}&page_size={{for_count.json.count}}
+        url: https://ansible.novartis.infra/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}&page_size=200&page={{item}}
         user: "{{tower_user}}"
         password: "{{tower_pass}}"
         method: GET
@@ -44,16 +57,20 @@
         status_code: 200
         return_content: true
       register: towerapi
+      with_sequence: start=1 end={{no_of_pages|int}}
       no_log: true
-    - name: append
-      set_fact:
-        job_id : "{{ job_id + [item.id]  }}"
-      loop: "{{towerapi.json.results}}"
-      no_log: true
+
+    - name: template job_id
+      template:
+        src: job_id.j2
+        dest: jobid.yml
+    
+    - name: include variable
+      include_vars: jobid.yml
 
     - name: get the host information
       uri:
-        url: https://ansible.novartis.intra/api/v2/jobs/{{item}}/job_host_summaries
+        url: https://ansible.novartis.infra/api/v2/jobs/{{item}}/job_host_summaries
         user: "{{tower_user}}"
         password: "{{tower_pass}}"
         method: GET
@@ -64,7 +81,7 @@
       loop: "{{job_id}}"
       register: vardata
       no_log: true
-
+    
     - name: template
       template:
         src: template.j2
@@ -76,7 +93,7 @@
         port: 25
         from: runbook.automation@novartis.com
         to: "{{mail_reciever}}"
-        subject: Ansible Tower Job Report from {{start_date_time}} to {{end_date_time}} || https://ansible.novartis.intra/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}&page_size={{for_count.json.count}}
+        subject: Ansible Tower Job Report from {{start}} to {{end}}
         attach:
           - per-host-timeframe.csv
       no_log: true
