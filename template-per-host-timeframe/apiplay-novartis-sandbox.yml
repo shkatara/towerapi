@@ -32,10 +32,17 @@
       set_fact:
         page_no_before: "{{ for_count.json.count / 200 | round }}"
 
+    - name: print page no before
+      debug:
+        var: page_no_before
+
     - name: set page no after
       set_fact: 
         no_of_pages: "{{page_no_before.split('.')[0] }}"
 
+    - name: print page no after
+      debug:
+        var: no_of_pages
 
     - name: Query within Ansible tower for reporting
       uri:
