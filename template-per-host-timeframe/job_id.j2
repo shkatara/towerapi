@@ -1,0 +1,4 @@
+job_id: [
+{%- for outer in towerapi.results -%}
+{%- for inner in outer.json.results -%}    
+{{inner.id}},{%-endfor-%}{%-endfor-%}]

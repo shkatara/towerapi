@@ -5,13 +5,9 @@
   hosts: localhost
   gather_facts: false
   vars: 
-    start: "2022-04-17"
+    start: "2022-04-18"
     end: "2022-04-19"
   tasks:
-    - name: set empty list for job ids
-      set_fact: 
-        job_id: []
-
     - name: set dates
       set_fact:
         start: "{{start}}T00:00:01"
@@ -30,10 +26,17 @@
       register: for_count
       no_log: true
 
+    - name: calculate no of pages given page size is 2
+      set_fact:
+        page_no_before: "{{ for_count.json.count / 2 | round }}"
+
+    - name: set page no after
+      set_fact: 
+        no_of_pages: "{{page_no_before.split('.')[0] }}"
 
     - name: Query within the date and time and for count
       uri:
-        url: https://ansible-ctrl.0e25.dynamic.opentlc.com/api/v2/jobs?started__gte={{start}}&finished__lte={{end}}&page_size={{for_count.json.count}}
+        url: https://ansible-ctrl.0e25.dynamic.opentlc.com/api/v2/jobs?started__gte={{start}}&finished__lte={{end}}&page_size=2&page={{item}}
         user: admin
         password: redhat
         method: GET
@@ -42,13 +45,16 @@
         status_code: 200
         return_content: true
       register: towerapi
+      with_sequence: start=1 end={{no_of_pages}}
       no_log: true
 
-    - name: append
-      set_fact:
-        job_id : "{{ job_id + [item.id]  }}"
-      loop: "{{towerapi.json.results}}"
-      no_log: true
+    - name: template job_id
+      template:
+        src: job_id.j2
+        dest: jobid.yml
+    
+    - name: include variable
+      include_vars: jobid.yml
 
     - name: get the host information
       uri:
@@ -63,7 +69,7 @@
       loop: "{{job_id}}"
       register: vardata
       no_log: true
-    
+   
     - name: template
       template:
         src: template.j2

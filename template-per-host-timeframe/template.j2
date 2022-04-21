@@ -1,8 +1,9 @@
-{%- for result in towerapi.json.results -%}
-  {%- for output in vardata.results -%}
-    {%- if result.id == output.item -%}
-      {%- if output.json.results | length >0 -%}
-        {%- for hosts in output.json.results  -%}
+{%- for extra in towerapi.results -%}
+  {%- for result in extra.json.results -%}
+    {%- for output in vardata.results -%}
+      {%- if result.id == output.item -%}
+        {%- if output.json.results | length >0 -%}
+          {%- for hosts in output.json.results  -%}
 {{result.summary_fields.unified_job_template.name}},{{result.id}},{{ result.created.split('.')[0].split('T')[0] }} {{  result.created.split('.')[0].split('T')[1] }},{{  hosts.host_name  }},
 {%- if hosts.failures >0 -%}failed{%-else-%}successful{%- endif%}
 
@@ -11,5 +12,6 @@
 {{result.summary_fields.unified_job_template.name}},{{result.id}},{{ result.created.split('.')[0].split('T')[0] }} {{  result.created.split('.')[0].split('T')[1] }},FAILURE NOT HOST
 {% endif -%}
     {%- endif -%} 
+  {%- endfor -%}
   {%- endfor -%}
 {%- endfor -%}
