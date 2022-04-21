@@ -4,7 +4,8 @@
   gather_facts: false
   vars: 
     start: "2022-04-18"
-    end: "2022-04-19"
+    end: "2022-04-21"
+    no_of_pages: 1.0
   tasks:
     - name: set dates
       set_fact:
@@ -26,11 +27,12 @@
 
     - name: calculate no of pages given page size is 2
       set_fact:
-        page_no_before: "{{ for_count.json.count / 2 | round }}"
+        no_of_pages: "{{ for_count.json.count / 2 }}"
 
-    - name: set page no after
-      set_fact: 
-        no_of_pages: "{{page_no_before.split('.')[0] }}"
+    - name: set no of pages if more than 1 needed
+      set_fact:
+        no_of_pages: "{{no_of_pages|float|round(0,'ceil')}}"
+      when: no_of_pages|float > 1.0
 
     - name: Query within the date and time and for count
       uri:
@@ -43,8 +45,7 @@
         status_code: 200
         return_content: true
       register: towerapi
-      with_sequence: start=1 end={{no_of_pages}}
-      no_log: true
+      with_sequence: start=1 end={{no_of_pages|int}}
 
     - name: template job_id
       template:

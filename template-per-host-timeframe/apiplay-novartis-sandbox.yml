@@ -5,6 +5,7 @@
   vars: 
     start: "2022-04-14"
     end: "2022-04-18"
+    no_of_pages: 1.0
   vars_files:
     - vars.yml
   tasks:
@@ -27,22 +28,19 @@
         return_content: true
       register: for_count
       no_log: true
-
-    - name: calculate no of pages given page size is 200
+    
+    - name: calculate no of pages given page size is 2
       set_fact:
-        page_no_before: "{{ for_count.json.count / 200 | round }}"
+        no_of_pages: "{{ for_count.json.count / 2 }}"
 
-    - name: print page no before
+    - name: set no of pages if more than 1 needed
+      set_fact:
+        no_of_pages: "{{no_of_pages|float|round(0,'ceil')}}"
+      when: no_of_pages|float > 1.0
+
+    - name: print the no of pages
       debug:
-        var: page_no_before
-
-    - name: set page no after
-      set_fact: 
-        no_of_pages: "{{page_no_before.split('.')[0] }}"
-
-    - name: print page no after
-      debug:
-        var: no_of_pages
+        msg: no of pages are {{no_of_pages}}
 
     - name: Query within Ansible tower for reporting
       uri:
@@ -55,7 +53,7 @@
         status_code: 200
         return_content: true
       register: towerapi
-      with_sequence: start=1 end={{no_of_pages}}
+      with_sequence: start=1 end={{no_of_pages|int}}
       no_log: true
 
     - name: template job_id
