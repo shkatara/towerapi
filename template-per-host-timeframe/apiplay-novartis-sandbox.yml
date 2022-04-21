@@ -8,10 +8,6 @@
   vars_files:
     - vars.yml
   tasks:
-    - name: set empty list for job ids
-      set_fact: 
-        job_id: []
-
 
     - name: set dates with time
       set_fact:
@@ -32,10 +28,18 @@
       register: for_count
       no_log: true
 
+    - name: calculate no of pages given page size is 200
+      set_fact:
+        page_no_before: "{{ for_count.json.count / 200 | round }}"
+
+    - name: set page no after
+      set_fact: 
+        no_of_pages: "{{page_no_before.split('.')[0] }}"
+
 
     - name: Query within Ansible tower for reporting
       uri:
-        url: https://phchbs-lx220059.eu.novartis.net/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}&page_size={{for_count.json.count}}
+        url: https://phchbs-lx220059.eu.novartis.net/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}&page_size=200&page={{item}}
         user: "{{tower_user}}"
         password: "{{tower_pass}}"
         method: GET
@@ -44,13 +48,16 @@
         status_code: 200
         return_content: true
       register: towerapi
+      with_sequence: start=1 end={{no_of_pages}}
       no_log: true
 
-    - name: append
-      set_fact:
-        job_id : "{{ job_id + [item.id]  }}"
-      loop: "{{towerapi.json.results}}"
-      no_log: true
+    - name: template job_id
+      template:
+        src: job_id.j2
+        dest: jobid.yml
+    
+    - name: include variable
+      include_vars: jobid.yml
 
     - name: get the host information
       uri:

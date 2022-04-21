@@ -1,6 +1,4 @@
 ---
-
-
 - name: run the playbook
   hosts: localhost
   gather_facts: false
