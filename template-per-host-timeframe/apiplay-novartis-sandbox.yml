@@ -49,7 +49,6 @@
         return_content: true
       register: towerapi
       with_sequence: start=1 end={{no_of_pages}}
-      no_log: true
 
     - name: template job_id
       template:
