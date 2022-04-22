@@ -80,7 +80,7 @@
         return_content: true
       loop: "{{job_id}}"
       register: vardata
-      no_log: true
+      
     
     - name: template
       template:
