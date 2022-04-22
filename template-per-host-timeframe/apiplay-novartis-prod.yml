@@ -41,23 +41,28 @@
       set_fact:
         no_of_pages: "{{no_of_pages|float|round(0,'ceil')}}"
       when: no_of_pages|float > 1.0
+      
+      - name: set no of pages if 1 needed
+      set_fact:
+        no_of_pages: 1
+      when: no_of_pages|float < 1.0
 
     - name: print the no of pages
       debug:
         msg: no of pages needef are {{no_of_pages}}
 
-    - name: Query within Ansible tower for reporting if page needed is 1
-      uri:
-        url: https://ansible.novartis.intra/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}&page_size=200&page=1
-        user: "{{tower_user}}"
-        password: "{{tower_pass}}"
-        method: GET
-        validate_certs: false
-        force_basic_auth: yes
-        status_code: 200
-        return_content: true
-      register: towerapi
-      when: no_of_pages <= "1.0"
+    #- name: Query within Ansible tower for reporting if page needed is 1
+    #  uri:
+    #    url: https://ansible.novartis.intra/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}&page_size=200&page=1
+    #    user: "{{tower_user}}"
+    #    password: "{{tower_pass}}"
+    #    method: GET
+    #    validate_certs: false
+    #    force_basic_auth: yes
+    ##    status_code: 200
+     #   return_content: true
+     # register: towerapi
+     # when: no_of_pages <= "1.0"
 
     - name: Query within Ansible tower for reporting
       uri:
