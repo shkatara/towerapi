@@ -46,7 +46,7 @@
       debug:
         msg: no of pages needef are {{no_of_pages}}
 
-    - name: Query within Ansible tower for reporting
+    - name: Query within Ansible tower for reporting if page needed is 1
       uri:
         url: https://ansible.novartis.intra/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}&page_size=200&page=1
         user: "{{tower_user}}"
@@ -71,8 +71,8 @@
         return_content: true
       register: towerapi
       with_sequence: start=1 end={{no_of_pages|int}}
-      when: no_of_pages > "1.0"
-
+      when: no_of_pages > 1.0
+      
     - name: template job_id
       template:
         src: job_id.j2
