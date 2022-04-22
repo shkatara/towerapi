@@ -5,7 +5,7 @@
   vars: 
     start: "2022-04-14"
     end: "2022-04-18"
-   # no_of_pages: 1
+    no_of_pages: 1.0
   vars_files:
     - vars.yml
   tasks:
@@ -48,6 +48,19 @@
 
     - name: Query within Ansible tower for reporting
       uri:
+        url: https://ansible.novartis.intra/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}&page_size=200&page=1
+        user: "{{tower_user}}"
+        password: "{{tower_pass}}"
+        method: GET
+        validate_certs: false
+        force_basic_auth: yes
+        status_code: 200
+        return_content: true
+      register: towerapi
+      when: no_of_pages <= "1.0"
+
+    - name: Query within Ansible tower for reporting
+      uri:
         url: https://ansible.novartis.intra/api/v2/jobs?started__gte={{start_date_time}}&finished__lte={{end_date_time}}&page_size=200&page={{item}}
         user: "{{tower_user}}"
         password: "{{tower_pass}}"
@@ -58,7 +71,7 @@
         return_content: true
       register: towerapi
       with_sequence: start=1 end={{no_of_pages|int}}
-
+      when: no_of_pages > "1.0"
 
     - name: template job_id
       template:
