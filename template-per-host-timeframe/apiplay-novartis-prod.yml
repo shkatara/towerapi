@@ -27,7 +27,7 @@
         status_code: 200
         return_content: true
       register: for_count
-      
+      no_log: true
     
     - name: Print Total no of jobs
       debug:
@@ -76,7 +76,7 @@
         return_content: true
       register: towerapi
       with_sequence: start=1 end={{no_of_pages|int}}
-      
+      no_log: true  
     - name: template job_id
       template:
         src: job_id.j2
@@ -97,7 +97,7 @@
         return_content: true
       loop: "{{job_id}}"
       register: vardata
-      
+      no_log: true
     
     - name: template
       template:
