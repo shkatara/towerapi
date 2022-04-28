@@ -76,7 +76,7 @@
         return_content: true
       register: towerapi
       with_sequence: start=1 end={{no_of_pages|int}}
-      no_log: true  
+        
     - name: template job_id
       template:
         src: job_id.j2
@@ -97,12 +97,12 @@
         return_content: true
       loop: "{{job_id}}"
       register: vardata
-      no_log: true
+      
     
     - name: template
       template:
         src: template.j2
-        dest: per-host-timeframe.csv
+        dest: tower-report-{{start}}-{{end}}.csv
 
     - name: send email as attachment
       mail: 
@@ -112,5 +112,5 @@
         to: "{{mail_reciever}}"
         subject: Ansible Tower Job Report from {{start}} to {{end}}
         attach:
-          - per-host-timeframe.csv
+          - tower-report-{{start}}-{{end}}.csv
       
