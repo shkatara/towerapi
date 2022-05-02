@@ -33,11 +33,22 @@
         port: 5432
       register: hosts_info
 
-    #- name: 
-
-#select *  from main_activitystream where  operation='create' and object1='job';
+    - name: get all host summary
+      postgresql_query: 
+        db: awx
+        query: "select deleted_actor::json -> 'username', timestamp, changes::json -> 'id'   from main_activitystream where timestamp  >= timestamp '2022-04-01 00:00:00' and timestamp  < timestamp '2022-05-02 00:00:00' and operation='create' and object1='job';"
+        login_host: localhost
+        login_password: redhat
+        login_user: awx
+        port: 5432
+      register: job_activitystream
 
     - name: template
       template:
               src: template.j2
               dest: /tmp/output
+
+    - name: newtemplate
+      template:
+              src: newtemplate.j2
+              dest: /tmp/newoutput
