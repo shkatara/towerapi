@@ -1,0 +1,12 @@
+{%- for job in jobs.query_result -%}
+  {%- for template in templates.query_result -%}
+    {%- if job.job_template_id==template.id -%}
+{{template.name}},{{job.unifiedjob_ptr_id}},CREATED,
+      {%- for host_info in hosts_info.query_result -%}
+        {%- if host_info.job_id==job.unifiedjob_ptr_id -%}
+{{host_info.host_name}},Failure
+        {% endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}

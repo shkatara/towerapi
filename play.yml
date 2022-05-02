@@ -1,0 +1,43 @@
+---
+- name: play
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Get all the jobs
+      postgresql_query: 
+        db: awx
+        query: "select * from main_job"
+        login_host: localhost
+        login_password: redhat
+        login_user: awx
+        port: 5432
+      register: jobs
+
+    - name: Get all job template
+      postgresql_query: 
+        db: awx
+        query: "select * from main_unifiedjobtemplate"
+        login_host: localhost
+        login_password: redhat
+        login_user: awx
+        port: 5432
+      register: templates
+
+    - name: get all host summary
+      postgresql_query: 
+        db: awx
+        query: "select * from main_jobhostsummary"
+        login_host: localhost
+        login_password: redhat
+        login_user: awx
+        port: 5432
+      register: hosts_info
+
+    #- name: 
+
+#select *  from main_activitystream where  operation='create' and object1='job';
+
+    - name: template
+      template:
+              src: template.j2
+              dest: /tmp/output
