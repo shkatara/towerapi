@@ -1,16 +1,26 @@
-{%- for job in jobs.query_result -%}
-  {%- for template in templates.query_result -%}
-    {%- if job.job_template_id==template.id -%}
-      {%- for host_info in hosts_info.query_result -%}
-        {%- if host_info.job_id==job.unifiedjob_ptr_id  -%}
-{{template.name}},{{job.unifiedjob_ptr_id}},CREATED,{{host_info.host_name}},
-          {%- if host_info.failures>0 -%}
+JOB TEMPLATE NAME, JOB ID, JOB STARTED, JOB FINISHED, EXECUTED BY, SERVER, STATUS
+{% for data in job_activitystream.query_result -%}
+  {%- for time in job_endtimes.query_result-%}
+    {%- for job in jobs.query_result -%}
+      {%- for template in templates.query_result -%}
+        {%- for host_info in hosts_info.query_result -%}
+          {%- if job.job_template_id==template.id -%}
+            {%- if host_info.job_id==job.unifiedjob_ptr_id  -%}
+              {%- if job.unifiedjob_ptr_id==data.job_id|int  -%}
+                {%- if time.jobid==data.job_id|int -%}
+{{template.name}},{{job.unifiedjob_ptr_id}},{{data['timestamp'].split('T')[0]}} {{data['timestamp'].split('T')[1].split('.')[0]}},{{time['end'].split('T')[0]}} {{time['end'].split('T')[1].split('.')[0]}},{{data.actor}},{{host_info.host_name}},
+                 {%- if host_info.failures>0 -%}
 Failure
-            {%- else -%}
-Success   
+{% else -%}
+Success
 {% endif -%}
-        {%- endif -%}
+                {%- endif -%}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
       {%- endfor -%}
-    {%- endif -%}
+    {%- endfor -%}
   {%- endfor -%}
 {%- endfor -%}
+

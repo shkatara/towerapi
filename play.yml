@@ -2,9 +2,13 @@
 - name: play
   hosts: localhost
   gather_facts: false
+  vars:
+    start: "2022-04-01"
+    end: "2022-05-03"
   tasks:
+    
     - name: Get all the jobs
-      postgresql_query: 
+      postgresql_query:
         db: awx
         query: "select * from main_job"
         login_host: localhost
@@ -36,19 +40,29 @@
     - name: get all host summary
       postgresql_query: 
         db: awx
-        query: "select deleted_actor::json -> 'username', timestamp, changes::json -> 'id'   from main_activitystream where timestamp  >= timestamp '2022-04-01 00:00:00' and timestamp  < timestamp '2022-05-02 00:00:00' and operation='create' and object1='job';"
+        query: "select deleted_actor::jsonb ->> 'username' as actor, timestamp, changes::jsonb ->> 'id' as job_id  from main_activitystream where timestamp  >= timestamp '{{start}} 00:00:01' and timestamp  < timestamp '{{end}} 23:59:59' and operation='create' and object1='job';"
         login_host: localhost
         login_password: redhat
         login_user: awx
         port: 5432
       register: job_activitystream
 
+    - name: get end times of the job
+      postgresql_query: 
+        db: awx 
+        query: "select main_job.unifiedjob_ptr_id as jobId, main_unifiedjob.finished as end from main_job,main_unifiedjob where main_job.unifiedjob_ptr_id=main_unifiedjob.id;"
+        login_host: localhost
+        login_password: redhat
+        login_user: awx
+        port: 5432
+      register: job_endtimes
+     
     - name: template
       template:
               src: template.j2
               dest: /tmp/output
 
-    - name: newtemplate
-      template:
-              src: newtemplate.j2
-              dest: /tmp/newoutput
+    #- name: newtemplate
+    #  template:
+    #          src: newtemplate.j2
+    #          dest: /tmp/newoutput
