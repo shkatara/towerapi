@@ -2,6 +2,8 @@
 - name: play
   hosts: localhost
   gather_facts: false
+  vars_files:
+    - vars.yml
   vars:
     start: "2022-04-01"
     end: "2022-05-03"
