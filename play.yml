@@ -5,6 +5,7 @@
   vars:
     start: "2022-04-01"
     end: "2022-05-03"
+    mail_reciever: shkatara@redhat.com
   tasks:
     
     - name: Get all the jobs
@@ -60,9 +61,15 @@
     - name: template
       template:
               src: template.j2
-              dest: /tmp/output
-
-    #- name: newtemplate
-    #  template:
-    #          src: newtemplate.j2
-    #          dest: /tmp/newoutput
+              dest: tower-report-{{start}}-{{end}}.csv
+              
+    - name: send email as attachment
+      mail: 
+        host: mail.novartis.com
+        port: 25
+        from: runbook.automation@novartis.com
+        to: "{{mail_reciever}}"
+        subject: Ansible Tower Job Report from {{start}} to {{end}}
+        attach:
+          - tower-report-{{start}}-{{end}}.csv
+    
