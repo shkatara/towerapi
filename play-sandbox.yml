@@ -13,8 +13,8 @@
         db: awx
         query: "select * from main_job"
         login_host: localhost
-        login_password: redhat
-        login_user: awx
+        login_password: "{{db_password}}"
+        login_user: "{{db_username}}"
         port: 5432
       register: jobs
 
@@ -23,8 +23,8 @@
         db: awx
         query: "select * from main_unifiedjobtemplate"
         login_host: localhost
-        login_password: redhat
-        login_user: awx
+        login_password: "{{db_password}}"
+        login_user: "{{db_username}}"
         port: 5432
       register: templates
 
@@ -33,8 +33,8 @@
         db: awx
         query: "select * from main_jobhostsummary"
         login_host: localhost
-        login_password: redhat
-        login_user: awx
+        login_password: "{{db_password}}"
+        login_user: "{{db_username}}"
         port: 5432
       register: hosts_info
 
@@ -43,8 +43,8 @@
         db: awx
         query: "select deleted_actor::jsonb ->> 'username' as actor, timestamp, changes::jsonb ->> 'id' as job_id  from main_activitystream where timestamp  >= timestamp '{{start}} 00:00:01' and timestamp  < timestamp '{{end}} 23:59:59' and operation='create' and object1='job';"
         login_host: localhost
-        login_password: redhat
-        login_user: awx
+        login_password: "{{db_password}}"
+        login_user: "{{db_username}}"
         port: 5432
       register: job_activitystream
 
@@ -53,8 +53,8 @@
         db: awx 
         query: "select main_job.unifiedjob_ptr_id as jobId, main_unifiedjob.finished as end from main_job,main_unifiedjob where main_job.unifiedjob_ptr_id=main_unifiedjob.id;"
         login_host: localhost
-        login_password: redhat
-        login_user: awx
+        login_password: "{{db_password}}"
+        login_user: "{{db_username}}"
         port: 5432
       register: job_endtimes
      
