@@ -1,0 +1,4 @@
+JOB_TEMPLATE_NAME,ACTOR,JOB_ID,STARTED,FINISHED,HOST_EXECUTED_ON,STATUS
+{%for data in jobs.query_result%}
+{{data.job_template_name}},{{data.actor}},{{data.job_id}},{{data.started}},{{data.finished}},{{data.host_name}},{{data.case}}
+{%endfor%}

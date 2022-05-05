@@ -1,0 +1,26 @@
+---
+- name: play
+  hosts: localhost
+  gather_facts: false
+  vars:
+    start: "2022-04-01"
+    end: "2022-05-03"
+    mail_reciever: shkatara@redhat.com
+  tasks:
+    
+
+    - name: get end times of the job
+      postgresql_query: 
+        db: awx 
+        query: "select main_unifiedjob.id as JOB_ID,main_unifiedjobtemplate.name as JOB_TEMPLATE_NAME,deleted_actor::jsonb ->> 'username' as ACTOR,main_unifiedjob.started as STARTED,main_unifiedjob.finished as FINISHED,main_jobhostsummary.host_name, CASE WHEN main_jobhostsummary.failures>0 THEN 'Failed' ELSE 'Successful' END from main_jobhostsummary,main_unifiedjobtemplate,main_activitystream,main_unifiedjob,main_job where main_unifiedjob.id=main_job.unifiedjob_ptr_id and timestamp >= timestamp '2022-05-01 00:00:00' and timestamp < timestamp '2022-05-04 23:59:59' and main_activitystream.object1='job' and main_activitystream.operation='create' and main_activitystream.changes::json ->>'id'= cast(main_unifiedjob.id as varchar) and main_job.job_template_id=main_unifiedjobtemplate.id and main_jobhostsummary.job_id=main_job.unifiedjob_ptr_id;"
+        login_host: localhost
+        login_password: redhat
+        login_user: awx
+        port: 5432
+      register: jobs
+     
+
+    - name: print the jobs
+      template:
+        src: db_template.j2 
+        dest: /tmp/dbtemplate
